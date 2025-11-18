@@ -13,3 +13,6 @@ Route::livewire('/products/{category}/{subcategory}', 'pages::products.show')->n
 
 // Product detail page
 Route::livewire('/products/{category}/{subcategory}/{product}', 'pages::products.product')->name('products.product');
+
+// Order page
+Route::livewire('/order', 'pages::order')->name('order');
