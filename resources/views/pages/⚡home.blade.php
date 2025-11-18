@@ -19,12 +19,6 @@ new class extends Component
     {
         return Product::count();
     }
-
-    #[Layout('layouts.app')]
-    public function render()
-    {
-        return view('pages.⚡home');
-    }
 };
 ?>
 

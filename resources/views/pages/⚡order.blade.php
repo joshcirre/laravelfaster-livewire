@@ -34,13 +34,6 @@ new class extends Component
 
         $this->dispatch('cart-updated');
     }
-
-    #[Layout('layouts.app')]
-    #[Title('Order')]
-    public function render()
-    {
-        return view('pages.⚡order');
-    }
 };
 ?>
 

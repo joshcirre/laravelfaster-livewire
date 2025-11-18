@@ -45,12 +45,6 @@ new class extends Component
             })->count()
         );
     }
-
-    #[Layout('layouts.app')]
-    public function render()
-    {
-        return view('pages.products.⚡index');
-    }
 };
 ?>
 

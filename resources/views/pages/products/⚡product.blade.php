@@ -49,12 +49,6 @@ new class extends Component
                 ->get()
         );
     }
-
-    #[Layout('layouts.app')]
-    public function render()
-    {
-        return view('pages.products.⚡product');
-    }
 };
 ?>
 
