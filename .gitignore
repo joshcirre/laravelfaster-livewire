@@ -21,4 +21,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
-database/data/
+database/data/*
+!database/data/.gitkeep
+!database/data/data.sql
