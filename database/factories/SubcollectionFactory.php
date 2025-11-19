@@ -17,7 +17,7 @@ class SubcollectionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucwords(fake()->words(rand(2, 3), true)),
+            'name' => ucwords($this->faker->words(rand(2, 3), true)),
             'category_slug' => \App\Models\Category::factory(),
         ];
     }

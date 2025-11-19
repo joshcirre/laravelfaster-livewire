@@ -16,13 +16,13 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->words(rand(2, 5), true);
+        $name = $this->faker->words(rand(2, 5), true);
 
         return [
             'slug' => \Illuminate\Support\Str::slug($name),
             'name' => ucwords($name),
-            'description' => fake()->paragraph(3),
-            'price' => fake()->randomFloat(2, 5, 500),
+            'description' => $this->faker->paragraph(3),
+            'price' => $this->faker->randomFloat(2, 5, 500),
             'subcategory_slug' => \App\Models\Subcategory::factory(),
             'image_url' => null,
         ];

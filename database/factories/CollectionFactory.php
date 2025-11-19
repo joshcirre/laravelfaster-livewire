@@ -16,7 +16,7 @@ class CollectionFactory extends Factory
      */
     public function definition(): array
     {
-        $name = fake()->words(rand(2, 3), true);
+        $name = $this->faker->words(rand(2, 3), true);
 
         return [
             'name' => ucwords($name),
