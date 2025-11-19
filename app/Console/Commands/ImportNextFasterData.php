@@ -15,16 +15,29 @@ class ImportNextFasterData extends Command
     {
         $sqlFile = $this->argument('sql_file') ?? base_path('database/data/data.sql');
 
+        // Check for compressed version if uncompressed doesn't exist
         if (! file_exists($sqlFile)) {
-            $this->error("File not found: {$sqlFile}");
-            $this->newLine();
-            $this->info('Please ensure the SQL dump file exists at:');
-            $this->comment('  database/data/data.sql');
-            $this->newLine();
-            $this->info('Or provide a custom path:');
-            $this->comment('  php artisan import:data /path/to/data.sql');
+            $gzFile = $sqlFile.'.gz';
+            if (file_exists($gzFile)) {
+                $this->info("Decompressing {$gzFile}...");
+                exec("gunzip -k ".escapeshellarg($gzFile));
 
-            return self::FAILURE;
+                if (! file_exists($sqlFile)) {
+                    $this->error('Failed to decompress file');
+
+                    return self::FAILURE;
+                }
+            } else {
+                $this->error("File not found: {$sqlFile}");
+                $this->newLine();
+                $this->info('Please ensure the SQL dump file exists at:');
+                $this->comment('  database/data/data.sql or database/data/data.sql.gz');
+                $this->newLine();
+                $this->info('Or provide a custom path:');
+                $this->comment('  php artisan import:data /path/to/data.sql');
+
+                return self::FAILURE;
+            }
         }
 
         // Disable foreign key constraints temporarily

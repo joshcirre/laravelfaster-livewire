@@ -23,4 +23,4 @@ yarn-error.log
 /.zed
 database/data/*
 !database/data/.gitkeep
-!database/data/data.sql
+!database/data/data.sql.gz

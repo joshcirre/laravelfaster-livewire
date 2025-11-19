@@ -12,6 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Import product data from SQL dump
-        $this->call('import:data');
+        $this->command->call('import:data');
     }
 }
