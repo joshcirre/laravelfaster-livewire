@@ -43,13 +43,13 @@ class ImportNextFasterData extends Command
         // Disable foreign key constraints temporarily
         $this->disableForeignKeyChecks();
 
-        // Clear existing data
+        // Clear existing data (use delete instead of truncate for MySQL compatibility)
         $this->info('Clearing existing data...');
-        DB::table('products')->truncate();
-        DB::table('subcategories')->truncate();
-        DB::table('subcollections')->truncate();
-        DB::table('categories')->truncate();
-        DB::table('collections')->truncate();
+        DB::table('products')->delete();
+        DB::table('subcategories')->delete();
+        DB::table('subcollections')->delete();
+        DB::table('categories')->delete();
+        DB::table('collections')->delete();
 
         // Import collections
         $this->info('Importing collections...');
