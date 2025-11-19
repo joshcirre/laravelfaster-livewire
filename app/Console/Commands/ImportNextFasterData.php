@@ -28,7 +28,7 @@ class ImportNextFasterData extends Command
         }
 
         // Disable foreign key constraints temporarily
-        DB::statement('PRAGMA foreign_keys = OFF');
+        $this->disableForeignKeyChecks();
 
         // Clear existing data
         $this->info('Clearing existing data...');
@@ -114,11 +114,35 @@ class ImportNextFasterData extends Command
         });
 
         // Re-enable foreign key constraints
-        DB::statement('PRAGMA foreign_keys = ON');
+        $this->enableForeignKeyChecks();
 
         $this->info('✓ Data import completed successfully!');
 
         return self::SUCCESS;
+    }
+
+    private function disableForeignKeyChecks(): void
+    {
+        $driver = DB::getDriverName();
+
+        match ($driver) {
+            'mysql' => DB::statement('SET FOREIGN_KEY_CHECKS=0'),
+            'sqlite' => DB::statement('PRAGMA foreign_keys = OFF'),
+            'pgsql' => DB::statement('SET CONSTRAINTS ALL DEFERRED'),
+            default => null,
+        };
+    }
+
+    private function enableForeignKeyChecks(): void
+    {
+        $driver = DB::getDriverName();
+
+        match ($driver) {
+            'mysql' => DB::statement('SET FOREIGN_KEY_CHECKS=1'),
+            'sqlite' => DB::statement('PRAGMA foreign_keys = ON'),
+            'pgsql' => DB::statement('SET CONSTRAINTS ALL IMMEDIATE'),
+            default => null,
+        };
     }
 
     private function importTableFromFile(string $sqlFile, string $tableName, callable $transformer): void
